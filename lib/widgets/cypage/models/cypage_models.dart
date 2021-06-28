@@ -1,11 +1,9 @@
 part of cypage;
 
-abstract class CypageEvent {}
-
 class CypageSnapshot<T> {
   T? data;
-  dynamic error;
-  dynamic loading;
+  CypageError? error;
+  CypageLoading? loading;
   _CypageState state;
 
   CypageSnapshot({

@@ -9,6 +9,9 @@ import 'package:rxdart/rxdart.dart';
 part 'cypage_controller.dart';
 part 'cypage_models.dart';
 part 'cypage_deployer.dart';
+part 'cypage_events.dart';
+part 'cypage_loading_model.dart';
+part 'cypage_error_model.dart';
 
 class Cypage<T> extends StatelessWidget {
   const Cypage({
