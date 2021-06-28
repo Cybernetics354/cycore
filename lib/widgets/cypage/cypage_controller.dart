@@ -11,8 +11,10 @@ abstract class CypageController<T> {
   /// Stream pipe for [stateController]
   Stream<CypageSnapshot<T>> get stateStream => stateController.stream;
 
+  Stream<CypageSnapshot<T>>? get mainStream;
+
   /// Stream sink for [stateController]
-  StreamSink<CypageSnapshot<T>> get stateIn => stateController.sink;
+  StreamSink<CypageSnapshot<T>> get _stateIn => stateController.sink;
 
   /// Stream Controller for [event]
   final BehaviorSubject<CypageEvent> _eventController = new BehaviorSubject<CypageEvent>();
@@ -32,7 +34,7 @@ abstract class CypageController<T> {
     );
 
     lastState!.data = lastData!;
-    stateIn.add(lastState!);
+    _insert(lastState!);
   }
 
   /// Function for change state to Loading
@@ -42,22 +44,27 @@ abstract class CypageController<T> {
     );
 
     lastState!.loading = data;
-    stateIn.add(lastState!);
+    _insert(lastState!);
   }
 
   /// Function for change state to Error
   void error(dynamic error) {
-    lastState ??= CypageSnapshot(
+    lastState ??= CypageSnapshot<T>(
       state: _CypageState.error,
     );
 
     lastState!.error = error;
-    stateIn.add(lastState!);
+    _insert(lastState!);
   }
 
   void addEvent(CypageEvent event) {
     if (_eventController.isClosed) return;
     _eventController.add(event);
+  }
+
+  void _insert(CypageSnapshot<T> event) {
+    if (stateController.isClosed) return;
+    _stateIn.add(event);
   }
 
   @mustCallSuper

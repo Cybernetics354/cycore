@@ -8,6 +8,7 @@ import 'package:rxdart/rxdart.dart';
 
 part 'cypage_controller.dart';
 part 'cypage_models.dart';
+part 'cypage_deployer.dart';
 
 class Cypage<T> extends StatelessWidget {
   const Cypage({
@@ -44,7 +45,7 @@ class Cypage<T> extends StatelessWidget {
     _duration ??= _settings.duration;
 
     return StreamBuilder<CypageSnapshot<T>>(
-      stream: controller.stateStream,
+      stream: controller.mainStream ?? controller.stateStream,
       builder: (context, state) {
         return AnimatedSwitcher(
           transitionBuilder: _transition!,
