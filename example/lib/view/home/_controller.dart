@@ -12,7 +12,7 @@ class _Controller extends CypageController<String> {
     loading();
     await Future.delayed(Duration(seconds: 3));
 
-    error("Error Bro");
+    error(NetworkError("Error Bro"));
   }
 
   @override

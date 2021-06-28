@@ -40,7 +40,7 @@ abstract class CypageController<T> {
   }
 
   /// Function for change state to Loading
-  void loading({dynamic data}) {
+  void loading({CypageLoading? data}) {
     lastState ??= CypageSnapshot<T>(
       state: _CypageState.loading,
     );
@@ -51,7 +51,7 @@ abstract class CypageController<T> {
   }
 
   /// Function for change state to Error
-  void error(dynamic error) {
+  void error(CypageError error) {
     lastState ??= CypageSnapshot<T>(
       state: _CypageState.error,
     );
