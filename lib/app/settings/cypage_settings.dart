@@ -46,7 +46,7 @@ class CypageSettings {
     CypageSnapshot snapshot,
   ) {
     return Center(
-      key: ValueKey("loading"),
+      key: ValueKey("error"),
       child: Text(
         snapshot.error.toString(),
         textAlign: TextAlign.center,
@@ -59,7 +59,7 @@ class CypageSettings {
     Animation<double> animation,
   ) {
     final _slide = Tween<Offset>(
-      begin: Offset(0, 10),
+      begin: Offset(0, 0.05),
       end: Offset(0, 0),
     ).animate(
       animation,

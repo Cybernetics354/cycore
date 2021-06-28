@@ -21,6 +21,7 @@ abstract class CypageController<T> {
 
   /// Handle event, it's useful for mapping
   /// event from abstract class level
+  @mustCallSuper
   void handleEvent(CypageEvent event);
 
   /// Function for change state to Active
@@ -34,6 +35,7 @@ abstract class CypageController<T> {
     );
 
     lastState!.data = lastData!;
+    lastState!.state = _CypageState.active;
     _insert(lastState!);
   }
 
@@ -44,6 +46,7 @@ abstract class CypageController<T> {
     );
 
     lastState!.loading = data;
+    lastState!.state = _CypageState.loading;
     _insert(lastState!);
   }
 
@@ -54,6 +57,7 @@ abstract class CypageController<T> {
     );
 
     lastState!.error = error;
+    lastState!.state = _CypageState.error;
     _insert(lastState!);
   }
 
@@ -75,5 +79,6 @@ abstract class CypageController<T> {
 
   CypageController() {
     _eventController.listen(handleEvent);
+    loading();
   }
 }

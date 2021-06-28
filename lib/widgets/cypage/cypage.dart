@@ -48,6 +48,7 @@ class Cypage<T> extends StatelessWidget {
       stream: controller.mainStream ?? controller.stateStream,
       builder: (context, state) {
         return AnimatedSwitcher(
+          layoutBuilder: (newWid, oldWid) => newWid!,
           transitionBuilder: _transition!,
           switchInCurve: _curve!,
           switchOutCurve: _curve,
