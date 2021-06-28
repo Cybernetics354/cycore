@@ -14,13 +14,12 @@ abstract class CypageController<T> {
   /// Stream sink for [stateController]
   StreamSink<CypageSnapshot<T>> get stateIn => stateController.sink;
 
-  @mustCallSuper
-  void dispose() {
-    stateController.close();
-  }
+  /// Stream Controller for [event]
+  final BehaviorSubject<CypageEvent> _eventController = new BehaviorSubject<CypageEvent>();
 
-  // Initial function
-  T initial();
+  /// Handle event, it's useful for mapping
+  /// event from abstract class level
+  void handleEvent(CypageEvent event);
 
   /// Function for change state to Active
   void active(T data) {
@@ -54,5 +53,20 @@ abstract class CypageController<T> {
 
     lastState!.error = error;
     stateIn.add(lastState!);
+  }
+
+  void addEvent(CypageEvent event) {
+    if (_eventController.isClosed) return;
+    _eventController.add(event);
+  }
+
+  @mustCallSuper
+  void dispose() {
+    stateController.close();
+    _eventController.close();
+  }
+
+  CypageController() {
+    _eventController.listen(handleEvent);
   }
 }

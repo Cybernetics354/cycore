@@ -1,5 +1,7 @@
 part of cypage;
 
+abstract class CypageEvent {}
+
 class CypageSnapshot<T> {
   T? data;
   dynamic error;
