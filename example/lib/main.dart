@@ -4,12 +4,39 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+class ReloadEvent extends CypageEvent {}
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CycoreApp(
+      cypageSettings: CypageSettings(
+        onError: (context, snapshot) {
+          final _deployer = CypageDeployer.of(context);
+          if (_deployer == null)
+            return Center(
+              child: Text("Error"),
+            );
+
+          final _controller = _deployer.controller;
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Error"),
+                TextButton(
+                  child: Text("Reload"),
+                  onPressed: () {
+                    _controller.addEvent(ReloadEvent());
+                  },
+                )
+              ],
+            ),
+          );
+        },
+      ),
       child: MaterialApp(
         home: HomeView(),
       ),

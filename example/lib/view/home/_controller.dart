@@ -20,7 +20,7 @@ class _Controller extends CypageController<String> {
 
   @override
   void handleEvent(CypageEvent event) {
-    if (event is CyReload) {
+    if (event is ReloadEvent) {
       changeToActive();
     }
   }
