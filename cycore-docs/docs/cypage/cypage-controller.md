@@ -144,4 +144,4 @@ Function to disposing behavior objects inside class.<br />
 
 <br />
 
-#### Maintained By ex: corecybernetics354@gmail.com
+#### Maintained By corecybernetics354@gmail.com

@@ -8,8 +8,8 @@ const FeatureList = [
     Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Designed to be easy to use, and have some utils to improve your development
+        time.
       </>
     ),
   },
@@ -18,18 +18,18 @@ const FeatureList = [
     Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Let you focus on what's actually need to be focused, preventing from
+        so many boilerplate codes with global configuration.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Powered by RxDart',
     Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        RxDart is empowered dart native Stream, it's so powerful and have a tons
+        of utility that ready to use.
       </>
     ),
   },

@@ -40,4 +40,4 @@ No Properties.
 
 <br />
 
-#### Maintained By ex: corecybernetics354@gmail.com
+#### Maintained By corecybernetics354@gmail.com

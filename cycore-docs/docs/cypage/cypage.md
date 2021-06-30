@@ -131,4 +131,4 @@ Transition duration, by default it will use the global setting `Duration(millise
 
 <br />
 
-#### Maintained By ex: corecybernetics354@gmail.com
+#### Maintained By corecybernetics354@gmail.com

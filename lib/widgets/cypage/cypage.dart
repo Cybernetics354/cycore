@@ -26,11 +26,26 @@ class Cypage<T> extends StatelessWidget {
   }) : super(key: key);
 
   final CypageController<T> controller;
+
+  /// On page active, or when the controller calls `active()`
   final Widget Function(BuildContext, CypageSnapshot<T>) onActive;
+
+  /// On page active, or when the controller calls `error()`, by default
+  /// it will use the global configuration
   final Widget Function(BuildContext, CypageSnapshot<T>)? onError;
+
+  /// On page active, or when the controller calls `loading()`, by default
+  /// it will use the global configuration
   final Widget Function(BuildContext, CypageSnapshot<T>)? onLoading;
+
+  /// Build transition between state, by default it will use the global
+  /// configuration
   final Widget Function(Widget, Animation<double>)? transitionBuilder;
+
+  /// Transition curve
   final Curve? curve;
+
+  /// Transition duration
   final Duration? duration;
 
   @override
@@ -47,18 +62,21 @@ class Cypage<T> extends StatelessWidget {
     var _duration = duration;
     _duration ??= _settings.duration;
 
-    return StreamBuilder<CypageSnapshot<T>>(
-      stream: controller.mainStream ?? controller.stateStream,
-      builder: (context, state) {
-        return AnimatedSwitcher(
-          layoutBuilder: (newWid, oldWid) => newWid!,
-          transitionBuilder: _transition!,
-          switchInCurve: _curve!,
-          switchOutCurve: _curve,
-          duration: _duration!,
-          child: _build(context, state),
-        );
-      },
+    return CypageDeployer(
+      controller: controller,
+      child: StreamBuilder<CypageSnapshot<T>>(
+        stream: controller.mainStream ?? controller.stateStream,
+        builder: (context, state) {
+          return AnimatedSwitcher(
+            layoutBuilder: (newWid, oldWid) => newWid!,
+            transitionBuilder: _transition!,
+            switchInCurve: _curve!,
+            switchOutCurve: _curve,
+            duration: _duration!,
+            child: _build(context, state),
+          );
+        },
+      ),
     );
   }
 
