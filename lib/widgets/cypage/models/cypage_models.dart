@@ -1,5 +1,6 @@
 part of cypage;
 
+/// Snapshot of the current state
 class CypageSnapshot<T> {
   T? data;
   CypageError? error;

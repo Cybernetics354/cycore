@@ -1,7 +1,7 @@
 part of cypage;
 
-class CypageDeployer extends InheritedWidget {
-  CypageDeployer({
+class CypageProvider extends InheritedWidget {
+  CypageProvider({
     Key? key,
     required this.child,
     required this.controller,
@@ -10,12 +10,12 @@ class CypageDeployer extends InheritedWidget {
   final Widget child;
   final CypageController controller;
 
-  static CypageDeployer? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<CypageDeployer>();
+  static CypageProvider? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<CypageProvider>();
   }
 
   @override
-  bool updateShouldNotify(CypageDeployer oldWidget) {
+  bool updateShouldNotify(CypageProvider oldWidget) {
     return true;
   }
 }

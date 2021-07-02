@@ -1,5 +1,6 @@
 library home;
 
+import 'package:example/events.dart';
 import 'package:example/examples/advance_scrollable.dart';
 import 'package:example/examples/responsive_container.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,15 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cycore"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          context.showBottomSheet(TestingBottomSheet(
+            title: "Lorem",
+            desc: "Lorem Ipsum dolor sit amet",
+          ));
+        },
       ),
       body: Center(
         child: ListView.builder(

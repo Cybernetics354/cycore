@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return CycoreApp(
       cypageSettings: CypageSettings(
         onError: (context, snapshot) {
-          final _deployer = CypageDeployer.of(context);
+          final _deployer = CypageProvider.of(context);
           if (_deployer == null)
             return Center(
               child: Text("Error"),

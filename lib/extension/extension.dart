@@ -1,5 +1,6 @@
 library extension;
 
+import 'package:cycore/cycore.dart';
 import 'package:cycore/widgets/cypage/cypage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

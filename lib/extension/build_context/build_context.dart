@@ -2,7 +2,23 @@ part of extension;
 
 extension BuildContextExtension on BuildContext {
   /// Returns [CypageController] from current context
-  CypageController? get cypageController => CypageDeployer.of(this)?.controller;
+  CypageController? get cypageController => CypageProvider.of(this)?.controller;
+
+  /// Call bottom sheet that handled by [bottomSheetHandler]
+  Future<T?> showBottomSheet<T>(BottomSheetEvent handler) async {
+    final _app = CycoreApp.of(this);
+    if (_app == null) throw "There's no CycoreApp within Widget Tree";
+
+    return await _app.overlayHandler.bottomSheet(this, handler);
+  }
+
+  /// Call dialog that handled by [dialogHandler]
+  Future<T?> showDialog<T>(DialogEvent handler) async {
+    final _app = CycoreApp.of(this);
+    if (_app == null) throw "There's no CycoreApp within Widget Tree";
+
+    return await _app.overlayHandler.dialog(this, handler);
+  }
 
   /// To get a [MediaQuery] directly.
   MediaQueryData get mq => MediaQuery.of(this);

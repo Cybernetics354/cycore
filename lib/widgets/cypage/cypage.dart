@@ -62,7 +62,7 @@ class Cypage<T> extends StatelessWidget {
     var _duration = duration;
     _duration ??= _settings.duration;
 
-    return CypageDeployer(
+    return CypageProvider(
       controller: controller,
       child: StreamBuilder<CypageSnapshot<T>>(
         stream: controller.mainStream ?? controller.stateStream,

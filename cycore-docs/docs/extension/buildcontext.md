@@ -11,6 +11,16 @@ title: BuildContextExtension
 Get `CypageController` from current context.<br />
 *nullable*
 
+### showBottomSheet(BottomSheetHandler)
+**-> Future Generic**<br />
+Call bottom sheet that handled by `bottomSheetHandler()`<br />
+*nullable*
+
+### showDialog(DialogHandler)
+**-> Future Generic**<br />
+Call dialog that handled by `dialogHandler()`<br />
+*nullable*
+
 ### mq
 **-> MediaQueryData**<br />
 Get `MediaQueryData` from current context.<br />
