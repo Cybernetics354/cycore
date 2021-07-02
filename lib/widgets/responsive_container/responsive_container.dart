@@ -3,6 +3,7 @@ library reponsive_container;
 import 'package:cycore/app/cycore_app.dart';
 import 'package:flutter/material.dart';
 
+/// Building responsive container based on current view
 class ResponsiveContainer extends StatelessWidget {
   /// Basic Builder, the builder apply to Smartphone, and if there's no
   /// Builder upper, then use this builder as a default

@@ -4,6 +4,8 @@ title: AdvanceScrollable
 
 `AdvanceScrollable` Create advance scrollable with controller that can animateTo specific index, best use for scrollable with less item.
 
+![Advance Scrollable](/img/examples/advance-scrollable.gif)
+
 ## Usage
 
 ```dart
@@ -29,21 +31,32 @@ class _AdvanceScrollableTestingState extends State<AdvanceScrollableTesting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Advance Scrollable"),
+      ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          _controller.animateToIndex(10);
+          _controller.animateToIndex(5);
         },
       ),
-      body: Center(
-        child: AdvanceScrollable(
-          controller: _controller,
-          children: List.generate(10, (index) {
-            return ListTile(
-              title: Text("This is $index"),
-            );
-          }),
-        ),
+      body: AdvanceScrollable(
+        controller: _controller,
+        children: List.generate(10, (index) {
+          return Container(
+            width: context.screenWidth,
+            height: 500.0,
+            color: Colors.red.withGreen(index * 25),
+            child: Center(
+              child: Text(
+                index.toString(),
+                style: context.textTheme.headline3!.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          );
+        }),
       ),
     );
   }

@@ -1,112 +1,46 @@
 library home;
 
-import 'package:cycore/cycore.dart';
-import 'package:example/main.dart';
-import 'package:example/view/scrollable_index_list/scrollable_index_list.dart';
+import 'package:example/examples/advance_scrollable.dart';
+import 'package:example/examples/responsive_container.dart';
 import 'package:flutter/material.dart';
+import 'package:cycore/cycore.dart';
 
-part '_controller.dart';
+part '_home_content.dart';
 
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  final _Controller _controller = _Controller();
-  final ScrollableIndexListController _scrollController = ScrollableIndexListController();
-
-  int items = 5;
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    print("Initstate occured");
-  }
-
-  @override
   Widget build(BuildContext context) {
+    List<_Content> _contents = [
+      _Content(
+        page: AdvanceScrollableTesting(),
+        title: "Advance Scrollable",
+      ),
+      _Content(
+        title: "Responsive Container",
+        page: ResponsiveContainerTesting(),
+      ),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Lorem"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              _controller.changeToActive();
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.remove),
-            onPressed: () {
-              _controller.changeToError();
-            },
-          ),
-        ],
+        title: Text("Cycore"),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () async {
-          _scrollController.animateTo(0);
-        },
-      ),
-      body: Cypage<String>(
-        controller: _controller,
-        onActive: (context, snapshot) {
-          return Center(
-            child: ScrollableIndexList(
-              controller: _scrollController,
-              children: List.generate(items, (index) {
-                Color color = Colors.red;
+      body: Center(
+        child: ListView.builder(
+          itemCount: _contents.length,
+          itemBuilder: (context, index) {
+            final _items = _contents[index];
 
-                switch (index) {
-                  case 1:
-                    {
-                      color = Colors.green;
-                      break;
-                    }
-
-                  case 2:
-                    {
-                      color = Colors.yellow;
-                      break;
-                    }
-
-                  case 3:
-                    {
-                      color = Colors.blue;
-                      break;
-                    }
-
-                  case 4:
-                    {
-                      color = Colors.purple;
-                      break;
-                    }
-
-                  default:
-                }
-
-                return Container(
-                  width: context.screenWidth,
-                  height: 300.0,
-                  color: color,
-                  child: Center(
-                    child: Text(index.toString()),
-                  ),
-                );
-              }),
-            ),
-          );
-        },
+            return ListTile(
+              title: Text(_items.title),
+              onTap: () {
+                context.push((context) => _items.page);
+              },
+            );
+          },
+        ),
       ),
     );
   }

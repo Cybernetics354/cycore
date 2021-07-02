@@ -93,7 +93,7 @@ class AdvanceScrollable extends StatelessWidget {
           break;
         }
 
-      case Axis.horizontal:
+      case Axis.vertical:
         {
           _child = _buildColumn(children: _children);
           break;

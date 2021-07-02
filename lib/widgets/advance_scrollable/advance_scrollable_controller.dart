@@ -27,13 +27,13 @@ class AdvanceScrollableController {
     ScrollPositionAlignmentPolicy? alignmentPolicy,
   }) async {
     // TODO :: Adding global configuration
-    duration ??= Duration(milliseconds: 700);
+    duration ??= Duration(seconds: 1);
     alignment ??= 0.0;
     curve ??= Curves.ease;
-    alignmentPolicy ??= ScrollPositionAlignmentPolicy.keepVisibleAtStart;
+    alignmentPolicy ??= ScrollPositionAlignmentPolicy.explicit;
 
     final _context = _contexes[index];
-    return await Scrollable.ensureVisible(
+    await Scrollable.ensureVisible(
       _context!,
       duration: duration,
       alignment: alignment,
