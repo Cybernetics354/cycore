@@ -35,7 +35,7 @@ class _AdvanceScrollableTestingState extends State<AdvanceScrollableTesting> {
           return Container(
             width: context.screenWidth,
             height: 500.0,
-            color: Colors.red.withGreen(index * 25),
+            color: Colors.green.withRed(index * 25),
             child: Center(
               child: Text(
                 index.toString(),

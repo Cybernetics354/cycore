@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             );
 
           final _controller = _deployer.controller;
-          return Center(
+          return Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -38,6 +38,10 @@ class MyApp extends StatelessWidget {
         },
       ),
       child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: Colors.green,
+          accentColor: Colors.green,
+        ),
         home: HomeView(),
       ),
     );
