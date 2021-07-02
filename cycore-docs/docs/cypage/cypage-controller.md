@@ -95,7 +95,7 @@ abstract class CypageController<T> {
 **CypageController**();<br />
 Construct CypageController
 
-## Properties
+## Utility
 
 **lastData** -> `T`<br />
 Last active data.<br />
