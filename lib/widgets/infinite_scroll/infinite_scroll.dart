@@ -65,6 +65,29 @@ class InfiniteScroll<T> extends StatelessWidget with CyMaterialGuideMixin {
                   ),
                 )
               ],
+              if (_data.isErrorOccured) ...[
+                Container(
+                  width: context.screenWidth,
+                  padding: padSym(
+                    ver: 30.0,
+                    hor: 30.0,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Terjadi error"),
+                        TextButton(
+                          child: Text("Coba Lagi"),
+                          onPressed: () {
+                            controller.fetchLast();
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ],
           );
         },

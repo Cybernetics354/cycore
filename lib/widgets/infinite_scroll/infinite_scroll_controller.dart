@@ -182,7 +182,7 @@ abstract class InfiniteScrollController<T>
 
     bool _offsetExceeded = offset >= _thereshold;
 
-    if (_offsetExceeded && !_isFetching) {
+    if (_offsetExceeded && !_isFetching && !_isFinish) {
       _getNewValue();
     }
   }

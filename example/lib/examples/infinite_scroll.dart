@@ -14,10 +14,13 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
   @override
   void initState() {
     super.initState();
-    _controller.initialize((offset) async {
-      await Future.delayed(Duration(seconds: 4));
-      return List.generate(15, (index) => index.toString());
-    });
+    _controller.initialize(_fetching);
+  }
+
+  Future<List<String>> _fetching(int offset) async {
+    await Future.delayed(Duration(seconds: 4));
+    if (offset > 50) throw "Error ler";
+    return List.generate(15, (index) => index.toString());
   }
 
   @override
