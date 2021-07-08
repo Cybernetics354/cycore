@@ -4,7 +4,7 @@ abstract class CypageController<T> {
   T? lastData;
   CypageSnapshot<T>? lastState;
 
-  /// Stream Controller for [state]
+  /// Stream Controller for [snapshot]
   final BehaviorSubject<CypageSnapshot<T>> stateController =
       new BehaviorSubject<CypageSnapshot<T>>();
 

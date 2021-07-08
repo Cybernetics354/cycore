@@ -2,6 +2,7 @@ library home;
 
 import 'package:example/events.dart';
 import 'package:example/examples/advance_scrollable.dart';
+import 'package:example/examples/infinite_scroll.dart';
 import 'package:example/examples/responsive_container.dart';
 import 'package:flutter/material.dart';
 import 'package:cycore/cycore.dart';
@@ -17,11 +18,18 @@ class HomeView extends StatelessWidget {
       _Content(
         page: AdvanceScrollableTesting(),
         title: "Advance Scrollable",
+        url: "/advance-scrollable",
       ),
       _Content(
         title: "Responsive Container",
         page: ResponsiveContainerTesting(),
+        url: "/responsive-container",
       ),
+      _Content(
+        title: "Infinite Scroll",
+        page: InfiniteScrollExample(),
+        url: "/infinite-scroll",
+      )
     ];
 
     return Scaffold(
