@@ -11,7 +11,7 @@ abstract class CypageController<T> {
   /// Stream pipe for [stateController]
   Stream<CypageSnapshot<T>> get stateStream => stateController.stream;
 
-  Stream<CypageSnapshot<T>>? get mainStream;
+  Stream<CypageSnapshot<T>>? get mainStream => stateStream;
 
   /// Stream sink for [stateController]
   StreamSink<CypageSnapshot<T>> get _stateIn => stateController.sink;
@@ -21,8 +21,7 @@ abstract class CypageController<T> {
 
   /// Handle event, it's useful for mapping
   /// event from abstract class level
-  @mustCallSuper
-  void handleEvent(CypageEvent event);
+  void handleEvent(CypageEvent event) {}
 
   /// Function for change state to Active
   void active(T data) {

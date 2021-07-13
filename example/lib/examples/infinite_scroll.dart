@@ -18,9 +18,9 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
   }
 
   Future<List<String>> _fetching(int offset) async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 1));
     if (offset > 50) throw "Error ler";
-    return List.generate(15, (index) => index.toString());
+    return List.generate(15, (index) => (index + offset).toString());
   }
 
   @override
@@ -47,10 +47,4 @@ class _InfiniteScrollExampleState extends State<InfiniteScrollExample> {
   }
 }
 
-class _Controller extends InfiniteScrollController<String> {
-  @override
-  void handleEvent(CypageEvent event) {}
-
-  @override
-  Stream<CypageSnapshot<InfiniteScrollSnapshot<List<String>>>>? get mainStream => stateStream;
-}
+class _Controller extends InfiniteScrollController<String> {}

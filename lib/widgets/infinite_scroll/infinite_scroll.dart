@@ -7,18 +7,34 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'infinite_scroll_controller.dart';
+part 'infinite_scroll_models.dart';
 
+/// Infinite scroll widget that support pull to refresh and refetching
+/// when the scroll is on edge
 class InfiniteScroll<T> extends StatelessWidget with CyMaterialGuideMixin {
   InfiniteScroll({
     Key? key,
     required this.controller,
     required this.itemBuilder,
     this.onItemEmpty,
+    this.onError,
+    this.onLoading,
   }) : super(key: key);
 
+  /// `InfiniteScrollController<T>` controller for infinite scroll
   final InfiniteScrollController<T> controller;
+
+  /// Item build, T for item
   final Widget Function(BuildContext, T, int) itemBuilder;
+
+  /// Build on item empty builder
   final Widget Function(BuildContext)? onItemEmpty;
+
+  /// Build loading widget on bottom when refetching
+  final Widget Function(BuildContext)? onLoading;
+
+  /// Build error widget on bottom when there's error occured when refetching
+  final Widget Function(BuildContext, CypageError?)? onError;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +58,6 @@ class InfiniteScroll<T> extends StatelessWidget with CyMaterialGuideMixin {
 
           if (_state.isEmpty) {
             if (onItemEmpty == null) return _settings.onEmptyBuilder(context);
-
             return onItemEmpty!(context);
           }
 
@@ -57,36 +72,18 @@ class InfiniteScroll<T> extends StatelessWidget with CyMaterialGuideMixin {
                 return itemBuilder(context, _cindex, index);
               }),
               if (_data.isFetching) ...[
-                Container(
-                  width: context.screenWidth,
-                  padding: padSym(ver: 30.0),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                )
+                onLoading == null ? _settings.loadingBuilder(context) : onLoading!(context),
               ],
               if (_data.isErrorOccured) ...[
-                Container(
-                  width: context.screenWidth,
-                  padding: padSym(
-                    ver: 30.0,
-                    hor: 30.0,
-                  ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Terjadi error"),
-                        TextButton(
-                          child: Text("Coba Lagi"),
-                          onPressed: () {
-                            controller.fetchLast();
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                onError == null
+                    ? _settings.onErrorBuilder(
+                        context,
+                        _data.error,
+                      )
+                    : onError!(
+                        context,
+                        _data.error,
+                      ),
               ],
             ],
           );

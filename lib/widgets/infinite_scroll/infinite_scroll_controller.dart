@@ -83,7 +83,7 @@ abstract class InfiniteScrollController<T>
 
   /// Callback when there's some error occured when fetching after the initial
   /// fetch
-  _continuousError(dynamic e) {
+  _continuousError(CypageError e) {
     snapshot.error = e;
     snapshot.state = InfiniteScrollState.error;
     _inputEvent(snapshot);
@@ -138,7 +138,7 @@ abstract class InfiniteScrollController<T>
         return null;
       }
 
-      return _continuousError(e);
+      return _continuousError(InfiniteScrollError(e));
     }
   }
 
@@ -167,7 +167,7 @@ abstract class InfiniteScrollController<T>
     var res = await _getNewValue();
 
     if (res == null) {
-      _continuousError("Error Because of Null");
+      _continuousError(InfiniteScrollError("Error Because of Null"));
       return false;
     }
 
@@ -248,29 +248,4 @@ abstract class InfiniteScrollController<T>
 
     _getNewValue();
   }
-}
-
-class InfiniteScrollError extends CypageError {
-  InfiniteScrollError(error) : super(error);
-}
-
-class InfiniteScrollSnapshot<T> {
-  T data;
-  InfiniteScrollState state;
-  dynamic error;
-
-  InfiniteScrollSnapshot({
-    required this.data,
-    required this.state,
-    this.error,
-  });
-
-  bool get isFetching => state == InfiniteScrollState.loading;
-  bool get isErrorOccured => state == InfiniteScrollState.error;
-}
-
-enum InfiniteScrollState {
-  error,
-  loading,
-  active,
 }
