@@ -2,7 +2,14 @@ import 'package:cycore/cycore.dart';
 import 'package:flutter/material.dart';
 
 class AdvanceScrollableTesting extends StatefulWidget {
-  const AdvanceScrollableTesting({Key? key}) : super(key: key);
+  const AdvanceScrollableTesting({
+    Key? key,
+    this.count = 10,
+    this.onTap = 5,
+  }) : super(key: key);
+
+  final int count;
+  final int onTap;
 
   @override
   _AdvanceScrollableTestingState createState() => _AdvanceScrollableTestingState();
@@ -49,13 +56,13 @@ class _AdvanceScrollableTestingState extends State<AdvanceScrollableTesting> {
           ),
         ),
         onPressed: () {
-          _controller.animateToIndex(5);
+          _controller.animateToIndex(widget.onTap);
         },
       ),
       body: AdvanceScrollable(
         scrollDirection: _axis,
         controller: _controller,
-        children: List.generate(10, (index) {
+        children: List.generate(widget.count, (index) {
           return Container(
             width: context.screenWidth,
             height: 500.0,

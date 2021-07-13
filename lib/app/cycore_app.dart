@@ -9,6 +9,7 @@ part 'settings/cypage_settings.dart';
 part 'settings/overlays/bottom_sheet_handler.dart';
 part 'settings/overlays/dialog_handler.dart';
 part 'settings/overlays/overlay_handler.dart';
+part 'settings/infinite_scroll_setting.dart';
 
 class CycoreApp extends InheritedWidget {
   CycoreApp({
@@ -17,8 +18,10 @@ class CycoreApp extends InheritedWidget {
     this.responsiveLayoutSettings = const ResponsiveLayoutSettings(),
     OverlayHandler? overlayHandler,
     CypageSettings? cypageSettings,
+    InfiniteScrollSettings? infiniteScrollSettings,
   })  : cypageSettings = cypageSettings ?? CypageSettings(),
         overlayHandler = overlayHandler ?? DefaultOverlayHandler(),
+        infiniteScrollSettings = infiniteScrollSettings ?? InfiniteScrollSettings(),
         super(
           key: key,
           child: child,
@@ -32,6 +35,8 @@ class CycoreApp extends InheritedWidget {
 
   /// Handle overlays from context
   final OverlayHandler overlayHandler;
+
+  final InfiniteScrollSettings infiniteScrollSettings;
 
   final Widget child;
 
