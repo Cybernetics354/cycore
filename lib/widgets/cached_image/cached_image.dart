@@ -21,6 +21,7 @@ part 'models/cached_image_states.dart';
 part 'models/_decoding_model.dart';
 part 'models/_widget_configuration.dart';
 part 'models/state_snapshot.dart';
+part 'models/typedefs.dart';
 
 class CachedImage extends StatefulWidget {
   final String url;
