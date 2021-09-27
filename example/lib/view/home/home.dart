@@ -2,6 +2,7 @@ library home;
 
 import 'package:example/events.dart';
 import 'package:example/examples/advance_scrollable.dart';
+import 'package:example/examples/cached_image.dart';
 import 'package:example/examples/infinite_scroll.dart';
 import 'package:example/examples/responsive_container.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,12 @@ class HomeView extends StatelessWidget {
         title: "Infinite Scroll",
         page: InfiniteScrollExample(),
         url: "/infinite-scroll",
-      )
+      ),
+      _Content(
+        title: "Cached Image",
+        page: CachedImageExample(),
+        url: "/cached-image",
+      ),
     ];
 
     return Scaffold(
