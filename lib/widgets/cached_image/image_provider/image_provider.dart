@@ -53,12 +53,15 @@ class CachedImageProvider extends ImageProvider<CachedImageProvider> {
   });
 
   @override
-  Future<CachedImageProvider> obtainKey(ImageConfiguration configuration) {
-    return SynchronousFuture<CachedImageProvider>(this);
+  Future<CachedImageProvider> obtainKey(ImageConfiguration configuration) async {
+    return await SynchronousFuture<CachedImageProvider>(this);
   }
 
   @override
-  ImageStreamCompleter load(CachedImageProvider key, DecoderCallback decode) {
+  ImageStreamCompleter load(
+    CachedImageProvider key,
+    DecoderCallback decode,
+  ) {
     return MultiImageStreamCompleter(
       controller: controller,
       codec: _loadAsync(key, controller, decode),

@@ -33,17 +33,17 @@ class CachedImageController {
 
   _emit({
     CachedImageStates? state,
-    _WidgetConfiguration? widgetConf,
+    String? resolvedUrl,
   }) {
     final CachedImageStateSnapshot _snapshot = CachedImageStateSnapshot(
       currentState: snapshot.currentState,
-      widgetConf: snapshot.widgetConf,
+      resolvedUrl: snapshot.resolvedUrl,
     );
 
     if (stateController.isClosed) return;
 
     if (state != null) _snapshot.currentState = state;
-    if (widgetConf != null) _snapshot.widgetConf = widgetConf;
+    if (resolvedUrl != null) _snapshot.resolvedUrl = resolvedUrl;
 
     snapshot = _snapshot;
     inState.add(snapshot);
@@ -51,7 +51,10 @@ class CachedImageController {
 
   _iddleState() => _emit(state: IddleCachedImageState());
 
-  _initiateState() => _emit(state: InitiateCachedImageState());
+  _initiateState(String resolvedUrl) => _emit(
+        state: InitiateCachedImageState(),
+        resolvedUrl: resolvedUrl,
+      );
 
   _fetchingState({
     int? bytesReceive,
@@ -80,61 +83,39 @@ class CachedImageController {
         ),
       );
 
-  setWidget({
-    String? url,
-    bool? evict,
-    AlignmentGeometry? alignment,
-    Rect? centerSlice,
-    Color? color,
-    BlendMode? blendMode,
-    bool? excludeFromSemantics,
-    FilterQuality? filterQuality,
-    BoxFit? fit,
-    ImageFrameBuilder? frameBuilder,
-    double? height,
-    double? width,
-    bool? isAntiAlias,
-    bool? isGaplessPlayback,
-    bool? matchTextDirection,
-    ImageRepeat? imageRepeat,
-    String? semanticLabel,
-  }) {
-    final _current = snapshot.widgetConf;
-
-    if (_current == null) throw "The current snapshot is null";
-
-    final _WidgetConfiguration _new = _WidgetConfiguration(
-      url: url ?? _current.url,
-      alignment: alignment ?? _current.alignment,
-      blendMode: blendMode ?? _current.blendMode,
-      centerSlice: centerSlice ?? _current.centerSlice,
-      color: color ?? _current.color,
-      evict: evict ?? _current.evict,
-      excludeFromSemantics: excludeFromSemantics ?? _current.excludeFromSemantics,
-      filterQuality: filterQuality ?? _current.filterQuality,
-      fit: fit ?? _current.fit,
-      frameBuilder: frameBuilder ?? _current.frameBuilder,
-      height: height ?? _current.height,
-      imageRepeat: imageRepeat ?? _current.imageRepeat,
-      isAntiAlias: isAntiAlias ?? _current.isAntiAlias,
-      isGaplessPlayback: isGaplessPlayback ?? _current.isGaplessPlayback,
-      matchTextDirection: matchTextDirection ?? _current.matchTextDirection,
-      semanticLabel: semanticLabel ?? _current.semanticLabel,
-      width: width ?? _current.width,
-    );
-
-    _emit(widgetConf: _new);
+  reload() {
+    _iddleState();
   }
 
-  Future<bool> _evictImage() async {
-    final _shouldEvict = snapshot.widgetConf!.evict;
+  _initialSetup(
+    BuildContext context,
+    CachedImageSettings setting,
+    String url, {
+    bool? shouldEvict = false,
+  }) async {
+    try {
+      var rUrl = await resolveUrl(context, setting, url);
+      if (shouldEvict ?? false) _evictImage(rUrl);
+      _initiateState(rUrl);
+    } catch (e) {
+      _errorState(e);
+    }
+  }
 
-    if (!_shouldEvict) return false;
+  Future<bool> _evictImage(String url) async {
     final _cacheManager = DefaultCacheManager();
     await _cacheManager.removeFile(
-      snapshot.widgetConf!.url,
+      url,
     );
     return true;
+  }
+
+  Future<String> resolveUrl(
+    BuildContext context,
+    CachedImageSettings setting,
+    String url,
+  ) async {
+    return await setting.urlResolve(context, url);
   }
 
   void dispose() {

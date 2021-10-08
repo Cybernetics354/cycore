@@ -10,6 +10,7 @@ part 'settings/overlays/bottom_sheet_handler.dart';
 part 'settings/overlays/dialog_handler.dart';
 part 'settings/overlays/overlay_handler.dart';
 part 'settings/infinite_scroll_setting.dart';
+part 'settings/cached_image_settings.dart';
 
 class CycoreApp extends InheritedWidget {
   CycoreApp({
@@ -19,9 +20,11 @@ class CycoreApp extends InheritedWidget {
     OverlayHandler? overlayHandler,
     CypageSettings? cypageSettings,
     InfiniteScrollSettings? infiniteScrollSettings,
+    CachedImageSettings? cachedImageSettings,
   })  : cypageSettings = cypageSettings ?? CypageSettings(),
         overlayHandler = overlayHandler ?? DefaultOverlayHandler(),
         infiniteScrollSettings = infiniteScrollSettings ?? InfiniteScrollSettings(),
+        cachedImageSettings = cachedImageSettings ?? CachedImageSettingsDefault(),
         super(
           key: key,
           child: child,
@@ -37,6 +40,8 @@ class CycoreApp extends InheritedWidget {
   final OverlayHandler overlayHandler;
 
   final InfiniteScrollSettings infiniteScrollSettings;
+
+  final CachedImageSettings cachedImageSettings;
 
   final Widget child;
 

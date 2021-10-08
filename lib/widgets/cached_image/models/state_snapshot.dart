@@ -2,7 +2,10 @@ part of cached_image;
 
 class CachedImageStateSnapshot {
   CachedImageStates currentState;
-  _WidgetConfiguration? widgetConf;
+  String? resolvedUrl;
 
-  CachedImageStateSnapshot({required this.currentState, this.widgetConf});
+  CachedImageStateSnapshot({
+    required this.currentState,
+    this.resolvedUrl,
+  });
 }

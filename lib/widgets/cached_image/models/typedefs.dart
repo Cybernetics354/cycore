@@ -1,5 +1,15 @@
 part of cached_image;
 
-typedef CachedImageURLResolve = String Function(BuildContext, String);
+/// Used for resolving url image, example when you need to resolve the url
+typedef CachedImageURLResolve = String Function(
+  BuildContext context,
+  String url,
+);
 
-typedef CachedImageBuilder = Widget Function(BuildContext, String);
+/// Used to build the widget
+typedef CachedImageBuilder = Widget Function(
+  BuildContext context,
+  CachedImageStateSnapshot snapshot,
+  ImageProvider image,
+  String url,
+);

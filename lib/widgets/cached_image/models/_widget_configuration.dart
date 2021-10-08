@@ -1,26 +1,24 @@
 part of cached_image;
 
-class _WidgetConfiguration {
-  final String url;
-  final bool evict;
-  final AlignmentGeometry? alignment;
-  final Rect? centerSlice;
-  final Color? color;
-  final BlendMode? blendMode;
-  final bool? excludeFromSemantics;
-  final FilterQuality? filterQuality;
-  final BoxFit? fit;
-  final ImageFrameBuilder? frameBuilder;
-  final double? height;
-  final double? width;
-  final bool? isAntiAlias;
-  final bool? isGaplessPlayback;
-  final bool? matchTextDirection;
-  final ImageRepeat? imageRepeat;
-  final String? semanticLabel;
+class CachedImageWidgetConfiguration {
+  bool? evict;
+  AlignmentGeometry? alignment;
+  Rect? centerSlice;
+  Color? color;
+  BlendMode? blendMode;
+  bool? excludeFromSemantics;
+  FilterQuality? filterQuality;
+  BoxFit? fit;
+  ImageFrameBuilder? frameBuilder;
+  double? height;
+  double? width;
+  bool? isAntiAlias;
+  bool? isGaplessPlayback;
+  bool? matchTextDirection;
+  ImageRepeat? imageRepeat;
+  String? semanticLabel;
 
-  _WidgetConfiguration({
-    required this.url,
+  CachedImageWidgetConfiguration({
     this.evict = false,
     this.alignment,
     this.blendMode,

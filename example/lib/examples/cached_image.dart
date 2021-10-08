@@ -63,6 +63,7 @@ class __CircularTestState extends State<_CircularTest> with SingleTickerProvider
 }
 
 class _CachedImageExampleState extends State<CachedImageExample> {
+  bool widget1 = false;
   double val = 0.0;
 
   _increase() async {
@@ -107,6 +108,14 @@ class _CachedImageExampleState extends State<CachedImageExample> {
       appBar: AppBar(
         title: Text("Cached Image"),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            widget1 = !widget1;
+          });
+        },
+      ),
       body: ListView(
         children: [
           ...List.generate(images.length, (index) {
@@ -120,13 +129,52 @@ class _CachedImageExampleState extends State<CachedImageExample> {
                 height: 500.0,
                 child: CachedImage(
                   url: _cindex,
-                  evict: true,
+                  builder: (context, image) {
+                    return Image(
+                      image: image,
+                      fit: BoxFit.cover,
+                    );
+                  },
+                  configuration: CachedImageWidgetConfiguration(
+                    evict: true,
+                  ),
                 ),
               ),
             );
           }),
         ],
       ),
+    );
+  }
+}
+
+class TestingLorem extends StatelessWidget {
+  final bool widget1;
+  const TestingLorem({Key? key, required this.widget1}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 600),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      child: widget1
+          ? Container(
+              key: ValueKey("red"),
+              color: Colors.red,
+              width: 100.0,
+              height: 100.0,
+            )
+          : Container(
+              key: ValueKey("green"),
+              width: 20.0,
+              height: 60.0,
+              color: Colors.green,
+            ),
     );
   }
 }
