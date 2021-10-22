@@ -101,29 +101,64 @@ Get Text Theme from context<br />
 Get caption style from TextTheme<br />
 *nullable*
 
-### accentColor
+### colorScheme
+**-> ColorScheme**<br />
+Get the color scheme<br />
+*non-nullable*
+
+### secondaryColor
 **-> Color**<br />
-The foreground color for widgets (knobs, text, overscroll edge effect, etc. Accent color is also known as the secondary color.<br />
+A secondary color provides more ways to accent and distinguish your product<br />
 *non-nullable*
 
 ### primaryColor
 **-> Color**<br />
-The background color for major parts of the app (toolbars, tab bars, etc)<br />
+Primary color is the color displayed the most frequently on UI<br />
+*non-nullable*
+
+### primaryVariant
+**-> Color**<br />
+Darker version of the primary color<br />
 *non-nullable*
 
 ### backgroundColor
 **-> Color**<br />
-A color that contrasts with the primaryColor<br />
+The background color appears behind scrollable content<br />
 *non-nullable*
 
-### canvasColor
+### surfaceColor
 **-> Color**<br />
-The default color of MaterialType.canvas<br />
+Surface color affect surfaces of components, such as card etc<br />
 *non-nullable*
 
-### cardColor
+### errorColor
 **-> Color**<br />
-The default color of MaterialType.card<br />
+Error color indicates errors in components<br />
+*non-nullable*
+
+### onPrimary
+**-> Color**<br />
+Content color on top of primary color<br />
+*non-nullable*
+
+### onSecondary
+**-> Color**<br />
+Content color on top of secondary color<br />
+*non-nullable*
+
+### onSurface
+**-> Color**<br />
+Content color on top of surface color<br />
+*non-nullable*
+
+### onError
+**-> Color**<br />
+Content color on top of error color<br />
+*non-nullable*
+
+### onBackground
+**-> Color**<br />
+Content color on top of background color<br />
 *non-nullable*
 
 ### brightness

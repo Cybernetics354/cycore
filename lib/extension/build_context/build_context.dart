@@ -74,37 +74,58 @@ extension BuildContextExtension on BuildContext {
   /// Extension for getting textTheme
   TextStyle? get captionStyle => Theme.of(this).textTheme.caption;
 
+  /// Get the color scheme
+  ColorScheme get colorScheme => theme.colorScheme;
+
+  /// A secondary color provides more ways to accent and distinguish your product. Having a secondary color is optional, and should be applied sparingly to accent select parts of your UI.
   ///
-  /// The foreground color for widgets (knobs, text, overscroll edge effect, etc).
+  /// If you don’t have a secondary color, your primary color can also be used to accent elements.
   ///
-  /// Accent color is also known as the secondary color.
+  /// Secondary colors are best for:
   ///
-  Color get accentColor => theme.accentColor;
+  /// Floating action buttons
+  /// Selection controls, like sliders and switches
+  /// Highlighting selected text
+  /// Progress bars
+  /// Links and headlines
+  Color get secondaryColor => colorScheme.secondary;
 
   ///
-  /// The background color for major parts of the app (toolbars, tab bars, etc).
+  /// A primary color is the color displayed most frequently across your app's screens and components.
   ///
-  Color get primaryColor => theme.primaryColor;
+  Color get primaryColor => colorScheme.primary;
 
-  ///
-  /// A color that contrasts with the [primaryColor].
-  ///
-  Color get backgroundColor => theme.backgroundColor;
+  /// Darker version of the primary color
+  Color get primaryVariant => colorScheme.primaryVariant;
 
-  ///
-  /// The default color of [MaterialType.canvas] [Material].
-  ///
-  Color get canvasColor => theme.canvasColor;
+  /// The background color appears behind scrollable content.
+  Color get backgroundColor => colorScheme.background;
 
-  ///
-  /// The default color of [MaterialType.card] [Material].
-  ///
-  Color get cardColor => theme.cardColor;
+  /// Surface colors affect surfaces of components, such as cards, sheets, and menus.
+  Color get surfaceColor => colorScheme.surface;
+
+  /// Error color indicates errors in components, such as invalid text in a text field.
+  Color get errorColor => colorScheme.error;
 
   ///
   /// The default brightness of the [Theme].
   ///
-  Brightness get brightness => theme.brightness;
+  Brightness get brightness => brightness;
+
+  /// Content on top of primary color
+  Color get onPrimary => colorScheme.onPrimary;
+
+  /// Content color on top of secondary color
+  Color get onSecondary => colorScheme.onSecondary;
+
+  /// Content color on top of surface color
+  Color get onSurface => colorScheme.onSurface;
+
+  /// Content color on top of error color
+  Color get onError => colorScheme.onError;
+
+  /// Content color on top of background color
+  Color get onBackground => colorScheme.onBackground;
 
   /// Extension for navigation to next page
   /// Returns The state from the closest instance of this class that encloses the given context.

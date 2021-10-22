@@ -1,11 +1,12 @@
 library home;
 
-import 'package:example/events.dart';
-import 'package:example/examples/advance_scrollable.dart';
-import 'package:example/examples/infinite_scroll.dart';
-import 'package:example/examples/responsive_container.dart';
 import 'package:flutter/material.dart';
 import 'package:cycore/cycore.dart';
+
+import '../../events.dart';
+import '../../examples/advance_scrollable.dart';
+import '../../examples/infinite_scroll.dart';
+import '../../examples/responsive_container.dart';
 
 part '_home_content.dart';
 

@@ -1,6 +1,7 @@
 import 'package:cycore/cycore.dart';
-import 'package:example/view/home/home.dart';
 import 'package:flutter/material.dart';
+
+import 'view/home/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -40,7 +41,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.green,
-          accentColor: Colors.green,
         ),
         home: HomeView(),
       ),
