@@ -2,7 +2,11 @@ part of cypage;
 
 abstract class CypageController<T> {
   T? lastData;
-  CypageSnapshot<T>? lastState;
+  CypageSnapshot<T> get lastState =>
+      stateController.valueOrNull ??
+      CypageSnapshot<T>(
+        state: CypageState.loading,
+      );
 
   /// Stream Controller for [snapshot]
   final BehaviorSubject<CypageSnapshot<T>> stateController =
@@ -27,37 +31,26 @@ abstract class CypageController<T> {
   void active(T data) {
     lastData = data;
 
-    // Assign if the value is null
-    lastState ??= CypageSnapshot<T>(
-      data: data,
-      state: _CypageState.active,
-    );
-
-    lastState!.data = lastData!;
-    lastState!.state = _CypageState.active;
-    _insert(lastState!);
+    _insert(lastState.copy(
+      data: lastData,
+      state: CypageState.active,
+    ));
   }
 
   /// Function for change state to Loading
   void loading({CypageLoading? data}) {
-    lastState ??= CypageSnapshot<T>(
-      state: _CypageState.loading,
-    );
-
-    lastState!.loading = data;
-    lastState!.state = _CypageState.loading;
-    _insert(lastState!);
+    _insert(lastState.copy(
+      loading: data,
+      state: CypageState.loading,
+    ));
   }
 
   /// Function for change state to Error
   void error(CypageError error) {
-    lastState ??= CypageSnapshot<T>(
-      state: _CypageState.error,
-    );
-
-    lastState!.error = error;
-    lastState!.state = _CypageState.error;
-    _insert(lastState!);
+    _insert(lastState.copy(
+      error: error,
+      state: CypageState.error,
+    ));
   }
 
   void addEvent(CypageEvent event) {

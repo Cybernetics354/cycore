@@ -5,7 +5,7 @@ class CypageSnapshot<T> {
   T? data;
   CypageError? error;
   CypageLoading? loading;
-  _CypageState state;
+  CypageState state;
 
   CypageSnapshot({
     required this.state,
@@ -14,12 +14,25 @@ class CypageSnapshot<T> {
     this.loading,
   });
 
-  bool get isLoading => state == _CypageState.loading;
-  bool get isError => state == _CypageState.error;
-  bool get isActive => state == _CypageState.active;
+  bool get isLoading => state == CypageState.loading;
+  bool get isError => state == CypageState.error;
+  bool get isActive => state == CypageState.active;
+
+  CypageSnapshot<T> copy({
+    T? data,
+    CypageError? error,
+    CypageLoading? loading,
+    CypageState? state,
+  }) =>
+      CypageSnapshot(
+        state: state ?? this.state,
+        data: data ?? this.data,
+        error: error ?? this.error,
+        loading: loading ?? this.loading,
+      );
 }
 
-enum _CypageState {
+enum CypageState {
   loading,
   error,
   active,

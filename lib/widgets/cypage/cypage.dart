@@ -97,13 +97,13 @@ class Cypage<T> extends StatelessWidget {
     if (_data == null) throw "Data can't be null";
 
     switch (_data.state) {
-      case _CypageState.active:
+      case CypageState.active:
         return Container(
           key: ValueKey("active"),
           child: onActive(context, _data),
         );
 
-      case _CypageState.loading:
+      case CypageState.loading:
         {
           if (onLoading == null) return _settings.onLoading(context, _data);
           return Container(
@@ -112,7 +112,7 @@ class Cypage<T> extends StatelessWidget {
           );
         }
 
-      case _CypageState.error:
+      case CypageState.error:
         {
           if (onError == null) return _settings.onError(context, _data);
           return Container(
