@@ -18,6 +18,10 @@ class CypageSnapshot<T> {
   bool get isError => state == CypageState.error;
   bool get isActive => state == CypageState.active;
 
+  bool get hasData => this.data != null;
+  bool get hasError => this.error != null;
+  bool get hasLoading => this.loading != null;
+
   CypageSnapshot<T> copy({
     T? data,
     CypageError? error,
@@ -36,4 +40,9 @@ enum CypageState {
   loading,
   error,
   active,
+}
+
+enum CypageTransitionType {
+  animatedSwitcher,
+  pageTransitionSwitcher,
 }

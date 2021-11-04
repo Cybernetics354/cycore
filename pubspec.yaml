@@ -10,6 +10,7 @@ environment:
 dependencies:
   rxdart: ^0.27.1
   intl: ^0.17.0
+  animations: ^2.0.2
   flutter:
     sdk: flutter
 

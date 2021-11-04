@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:cycore/app/cycore_app.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:animations/animations.dart';
 
 part 'cypage_controller.dart';
 part 'models/cypage_models.dart';
@@ -22,10 +23,16 @@ class Cypage<T> extends StatelessWidget {
     this.onLoading,
     this.transitionBuilder,
     this.curve,
+    this.transitionType,
     this.duration,
+    this.layoutBuilder,
+    this.pageAnimationSwitcherBuilder,
   }) : super(key: key);
 
   final CypageController<T> controller;
+
+  /// Transition Type
+  final CypageTransitionType? transitionType;
 
   /// On page active, or when the controller calls `active()`
   final Widget Function(BuildContext, CypageSnapshot<T>) onActive;
@@ -41,6 +48,12 @@ class Cypage<T> extends StatelessWidget {
   /// Build transition between state, by default it will use the global
   /// configuration
   final Widget Function(Widget, Animation<double>)? transitionBuilder;
+
+  /// Transition if using the [CypageTransitionType.pageTransitionSwitcher]
+  final Widget Function(Widget, Animation<double>, Animation<double>)? pageAnimationSwitcherBuilder;
+
+  /// Build transition layout between state
+  final Widget Function(Widget?, List<Widget>)? layoutBuilder;
 
   /// Transition curve
   final Curve? curve;
@@ -62,19 +75,44 @@ class Cypage<T> extends StatelessWidget {
     var _duration = duration;
     _duration ??= _settings.duration;
 
+    var _layout = layoutBuilder;
+    _layout ??= _settings.layoutBuilder;
+
+    var _type = transitionType;
+    _type ??= _settings.transitionType;
+
+    var _transitionBuild = pageAnimationSwitcherBuilder;
+    _transitionBuild ??= _settings.transitionBuilderIfSwitcher;
+
     return CypageProvider(
       controller: controller,
       child: StreamBuilder<CypageSnapshot<T>>(
         stream: controller.mainStream ?? controller.stateStream,
         builder: (context, state) {
-          return AnimatedSwitcher(
-            layoutBuilder: (newWid, oldWid) => newWid!,
-            transitionBuilder: _transition!,
-            switchInCurve: _curve!,
-            switchOutCurve: _curve,
-            duration: _duration!,
-            child: _build(context, state),
-          );
+          switch (_type) {
+            case CypageTransitionType.animatedSwitcher:
+              return AnimatedSwitcher(
+                layoutBuilder: _layout!,
+                transitionBuilder: _transition!,
+                switchInCurve: _curve!,
+                switchOutCurve: _curve,
+                duration: _duration!,
+                child: _build(context, state),
+              );
+
+            case CypageTransitionType.pageTransitionSwitcher:
+              return PageTransitionSwitcher(
+                transitionBuilder: _transitionBuild!,
+                duration: _duration!,
+                layoutBuilder: (childs) {
+                  return _layout!(childs.first, childs);
+                },
+                child: _build(context, state),
+              );
+
+            default:
+              throw UnimplementedError();
+          }
         },
       ),
     );
@@ -99,7 +137,7 @@ class Cypage<T> extends StatelessWidget {
     switch (_data.state) {
       case CypageState.active:
         return Container(
-          key: ValueKey("active"),
+          // key: ValueKey(state.runtimeType),
           child: onActive(context, _data),
         );
 
@@ -107,7 +145,7 @@ class Cypage<T> extends StatelessWidget {
         {
           if (onLoading == null) return _settings.onLoading(context, _data);
           return Container(
-            key: ValueKey("loading"),
+            // key: ValueKey(state.runtimeType),
             child: onLoading!(context, _data),
           );
         }
@@ -116,7 +154,7 @@ class Cypage<T> extends StatelessWidget {
         {
           if (onError == null) return _settings.onError(context, _data);
           return Container(
-            key: ValueKey("error"),
+            // key: ValueKey(state.runtimeType),
             child: onError!(context, _data),
           );
         }
