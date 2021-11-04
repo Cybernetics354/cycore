@@ -18,6 +18,8 @@ class CypageSnapshot<T> {
   bool get isError => state == CypageState.error;
   bool get isActive => state == CypageState.active;
 
+  bool get hasData => data != null;
+
   CypageSnapshot<T> copy({
     T? data,
     CypageError? error,

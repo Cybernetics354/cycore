@@ -11,6 +11,9 @@ class CypageSettings {
   /// has default transition of vertical offset and fade in
   final Widget Function(Widget, Animation<double>) transitionBuilder;
 
+  /// Default transition layout between states
+  final Widget Function(Widget?, List<Widget>) layoutBuilder;
+
   /// Default curve transition on cypage
   /// has default curve of [Curves.ease]
   final Curve curve;
@@ -23,13 +26,17 @@ class CypageSettings {
     Widget Function(BuildContext, CypageSnapshot)? onError,
     Widget Function(BuildContext, CypageSnapshot)? onLoading,
     Widget Function(Widget, Animation<double>)? transitionBuilder,
+    Widget Function(Widget?, List<Widget>)? layoutBuilder,
     Curve? curve,
     Duration? duration,
-  })  : onLoading = onLoading ?? _loading,
-        curve = curve ?? Curves.ease,
-        transitionBuilder = transitionBuilder ?? _transition,
-        duration = duration ?? Duration(milliseconds: 400),
-        onError = onError ?? _error;
+  })  : this.onLoading = onLoading ?? _loading,
+        this.layoutBuilder = layoutBuilder ?? _layout,
+        this.curve = curve ?? Curves.ease,
+        this.transitionBuilder = transitionBuilder ?? _transition,
+        this.duration = duration ?? Duration(milliseconds: 400),
+        this.onError = onError ?? _error;
+
+  static Widget _layout(Widget? newWidget, List<Widget> list) => newWidget!;
 
   static Widget _loading(
     BuildContext context,

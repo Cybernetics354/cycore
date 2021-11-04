@@ -121,6 +121,10 @@ Loading page view, by default it will use the global setting.<br />
 Transition between states.<br />
 *optional*
 
+**layoutBuilder** -> `Widget Function(Widget?, List<Widget>)`<br />
+Layout transition between states.<br />
+*optional*
+
 **curve** -> `Curve`<br />
 Transition curve, by default it will use the global setting.<br />
 *optional*

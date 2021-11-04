@@ -60,6 +60,10 @@ Getter for error.<br />
 Getter for active.<br />
 *non-nullable*
 
+**hasData** -> `bool`<br />
+Getter for checking whether the snapshot has data or not.<br />
+*non-nullable*
+
 
 <br />
 

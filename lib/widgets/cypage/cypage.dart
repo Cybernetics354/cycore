@@ -23,6 +23,7 @@ class Cypage<T> extends StatelessWidget {
     this.transitionBuilder,
     this.curve,
     this.duration,
+    this.layoutBuilder,
   }) : super(key: key);
 
   final CypageController<T> controller;
@@ -41,6 +42,9 @@ class Cypage<T> extends StatelessWidget {
   /// Build transition between state, by default it will use the global
   /// configuration
   final Widget Function(Widget, Animation<double>)? transitionBuilder;
+
+  /// Layout builder for the transition
+  final Widget Function(Widget?, List<Widget>)? layoutBuilder;
 
   /// Transition curve
   final Curve? curve;
@@ -62,13 +66,16 @@ class Cypage<T> extends StatelessWidget {
     var _duration = duration;
     _duration ??= _settings.duration;
 
+    var _layout = layoutBuilder;
+    _layout ??= _settings.layoutBuilder;
+
     return CypageProvider(
       controller: controller,
       child: StreamBuilder<CypageSnapshot<T>>(
         stream: controller.mainStream ?? controller.stateStream,
         builder: (context, state) {
           return AnimatedSwitcher(
-            layoutBuilder: (newWid, oldWid) => newWid!,
+            layoutBuilder: _layout!,
             transitionBuilder: _transition!,
             switchInCurve: _curve!,
             switchOutCurve: _curve,
